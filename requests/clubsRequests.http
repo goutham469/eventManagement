@@ -1,0 +1,56 @@
+GET http://localhost:4000/clubs/
+###
+POST http://localhost:4000/clubs/createClub
+Content-Type: application/json
+
+{
+    "clubId":"club2",
+    "clubName":"club2",
+    "volunteers":[],
+    "clubMembers":[],
+    "gallery":[],
+    "description":[],
+    "motto":[],
+    "profilePic":"",
+    "email":"",
+    "data1":{},
+    "password":"123"
+}
+###
+POST http://localhost:4000/clubs/createAPost
+Content-Type: application/json
+
+{
+    "subject":"MEGA BLOOD DONATION CAMP(MBDC)",
+    "clubId":"club1",
+    "clubName":"club1",
+    "description":[
+        {
+            "type":"p",
+            "value":"this is VNR's valuable event."
+        },
+        {
+            "type":"p",
+            "value":"this blood is donated to thalasemia patients"
+        },
+        {
+            "type":"p",
+            "value":"venue is at PG block seminar HALL"
+        }
+    ],
+    "poster":"",
+    "links":[
+        {
+            "name1":"google form registration link",
+            "value1":"link here"
+        }
+    ],
+    "lastDate":"10/06/2024",
+    "contactDetails":[
+        {
+            "name":"goutham reddy",
+            "phone":"9398141936",
+            "email":"uppinurigouthamreddy@gmail.com"
+        }
+    ]
+}
