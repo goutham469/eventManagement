@@ -28,7 +28,7 @@ import NewPost from './club/NewPost/NewPost';
 import { useEffect } from 'react';
 
 function App() {
-  // console.log(process.env)
+  console.log(process.env)
 
   useEffect(()=>{
     store.dispatch({type:"check_is_signed"})
