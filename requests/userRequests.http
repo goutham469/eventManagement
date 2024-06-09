@@ -1,1 +1,32 @@
-GET http://localhost:4000/user/
+GET http://localhost:4000/user/checkCredentials
+Content-Type: application/json
+
+{
+    "password":"123",
+    "rool_no":"22071a12k0"
+}
+###
+POST http://localhost:4000/user/getPersonalData
+Content-Type: application/json
+
+{
+    "rool_no":"22071a12k0"
+}
+###
+POST http://localhost:4000/user/updateProfilePic
+Content-Type: application/json
+
+{
+    "rool_no":"22071a12k0",
+    "url":"http://localhost:3000"
+}
+###
+POST http://localhost:4000/user/followClub
+Content-Type: application/json
+
+{
+    "rool_no":"22071a12k0",
+    "club":"acm"
+}
+###
+GET http://localhost:4000/user/getClubUpdates

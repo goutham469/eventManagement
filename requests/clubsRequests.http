@@ -4,12 +4,29 @@ POST http://localhost:4000/clubs/createClub
 Content-Type: application/json
 
 {
-    "clubId":"club2",
-    "clubName":"club2",
+    "clubId":"nss",
+    "clubName":"NSS - VNRVJIET",
     "volunteers":[],
     "clubMembers":[],
     "gallery":[],
-    "description":[],
+    "description":[
+        {
+            "type":"p",
+            "value":"welcome to NSS"
+        },
+        {
+            "type":"p",
+            "value":"NSS is a professional student club"
+        },
+        {
+            "type":"p",
+            "value":"NSS is VNR,s most valuable club."
+        },
+        {
+            "type":"p",
+            "value":"It is a family of 10,000+ students."
+        }
+    ],
     "motto":[],
     "profilePic":"",
     "email":"",
@@ -22,8 +39,9 @@ Content-Type: application/json
 
 {
     "subject":"MEGA BLOOD DONATION CAMP(MBDC)",
-    "clubId":"club1",
-    "clubName":"club1",
+    "clubId":"nss",
+    "clubName":"NSS",
+    "active":true,
     "description":[
         {
             "type":"p",
@@ -38,7 +56,7 @@ Content-Type: application/json
             "value":"venue is at PG block seminar HALL"
         }
     ],
-    "poster":"",
+    "posters":[],
     "links":[
         {
             "name1":"google form registration link",
@@ -53,4 +71,34 @@ Content-Type: application/json
             "email":"uppinurigouthamreddy@gmail.com"
         }
     ]
+}
+###
+POST http://localhost:4000/clubs/getClubData
+Content-Type: application/json
+
+{
+    "clubId":"nss"
+}
+###
+POST http://localhost:4000/clubs/getClubPosts
+Content-Type: application/json
+
+{
+    "clubId":"nss"
+}
+###
+POST http://localhost:4000/clubs/checkCredentials
+Content-Type: application/json
+
+{
+    "clubId":"nssd",
+    "password":"13"
+}
+
+###
+POST http://localhost:4000/clubs/getClubName
+Content-Type: application/json
+
+{
+    "clubId":"nss"
 }

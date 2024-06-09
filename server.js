@@ -1,6 +1,8 @@
 const exp = require('express')
 const path = require('path')
 const app = exp();
+const cors = require('cors')
+// const cros = require("cros")
 const mongodb_client = require('mongodb').MongoClient
 
 require('dotenv').config()
@@ -9,6 +11,7 @@ const usersAPI = require('./APIs/usersAPI')
 const clubsAPI = require('./APIs/clubsAPI')
 
 app.use(exp.json())
+app.use(cors())
 
 
 mongodb_client.connect(`${process.env.MONGODB_CONNECTION_URL}`).then((client)=>{
