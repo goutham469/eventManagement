@@ -1,3 +1,12 @@
 .p{
     color: #9aa9b6;
 }
+.userCOmponentFollowButton{
+    background-color:#9aa9b6;
+    border:1px solid black;
+    border-radius: 5px;
+}
+.userCOmponentFollowButton:hover{
+    background-color: black;
+    color: rgb(42, 175, 228);
+}

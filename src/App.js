@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
+import store from './store';
 
 import LandingPage from './components/LandingPage/LandingPage';
 import Login from './components/Login/Login';
@@ -19,8 +20,23 @@ import ClubLogin from './clubComponents/ClubLogin/ClubLogin';
 import ClubSignUp from './clubComponents/clubSignUp/ClubSignUp';
 
 
+import About from './club/About/About';
+import MasterComponent from './club/MasterComponent/MasterComponent';
+import NewPost from './club/NewPost/NewPost';
+
+
+import { useEffect } from 'react';
+
 function App() {
   // console.log(process.env)
+
+  useEffect(()=>{
+    store.dispatch({type:"check_is_signed"})
+    console.log(store.getState())
+  })
+
+
+
   let router = createBrowserRouter([
     {
       path:'',
@@ -59,6 +75,24 @@ function App() {
       ]
     },
     {
+      path:'clubOK',
+      element:<MasterComponent/>,
+      children:[
+        {
+          path:'',
+          element:<About/>
+        },
+        {
+          path:'about',
+          element:<About/>
+        },
+        {
+          path:'newPost',
+          element:<NewPost/>
+        }
+      ]
+    },
+    {
       path:'user',
       element:<MainPage/>,
       children:[
@@ -81,6 +115,8 @@ function App() {
       ]
     }
   ])
+
+  // console.log(store)
   return (
     <div className="App">
       <RouterProvider router={router}/>

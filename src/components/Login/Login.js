@@ -1,33 +1,15 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import store from '../../store';
 
 function Login() {
+    const navigate = useNavigate();
+
     let [roolNo,updateRoolNo] = useState();
     let [password,updatePassword] = useState();
     let [errorMessage,updateErrorMessage] = useState();
 
-
-    async function checkLoginCredentials()
-    {
-        // fetch the server here to update error message
-        const userObject = {"rool_no":roolNo,"password":password}
-        console.log(userObject)
-
-        // server fetching logic
-        let base_url = process.env.REACT_APP_SERVER_BASE_URL;
-
-        let responseFromServer = await fetch(`${base_url}/user/checkCredentials`,{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(userObject)
-        })
-
-        responseFromServer = await responseFromServer.json();
-
-        console.log(responseFromServer);
-        updateErrorMessage(responseFromServer.message);
-    }
-
-    function validateLogin(event)
+    async function validateLogin(event)
     {
         event.preventDefault();
         if(roolNo == null || roolNo == undefined || roolNo == '')
@@ -44,13 +26,39 @@ function Login() {
             else
             {
                 updateErrorMessage('');
-                checkLoginCredentials();
+                // fetch the server here to update error message
+                const userObject = {"rool_no":roolNo,"password":password}
+                console.log(userObject)
+
+                // server fetching logic
+                let base_url = process.env.REACT_APP_SERVER_BASE_URL;
+                // console.log(base_url)
+
+                let responseFromServer = await fetch(`${base_url}/user/checkCredentials`,{
+                    method:"POST",
+                    headers:{"Content-Type":"application/json"},
+                    body:JSON.stringify(userObject)
+                })
+
+                // console.log(responseFromServer)
+
+                responseFromServer = await responseFromServer.json();
+
+                console.log(responseFromServer);
+                updateErrorMessage(responseFromServer.message);
+                if(responseFromServer.message == "login_success")
+                {
+                    store.dispatch({type:"login",rool_no:roolNo})
+                    console.log(store,store.getState())
+                    navigate('../user')
+                    
+                }
             }
             
         }
     }
   return (
-    <div style={{backgroundColor:"white",border:"1px solid black",padding:"10px"}}>
+    <div style={{backgroundColor:"white",padding:"10px"}}>
         <h4>Login</h4>
         <form>
             <label>enter rool no</label><br/>
@@ -62,7 +70,7 @@ function Login() {
 
 
             <button>sign up</button>
-            <a href=''>forgot password</a>
+            {/* <a href=''>forgot password</a> */}
             
         </form>
     </div>

@@ -1,89 +1,85 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
-  let [roolNo,updateRoolNo] = useState();
-  let [emailId,updateEmailId] = useState();
-  let [password1,updatePassword1] = useState();
-  let [password2,updatePassword2] = useState();
-  let [errorMessage,updateErrorMessage] = useState();
+  let navigate = useNavigate()
+  const [rollNo, updateRollNo] = useState('');
+  const [emailId, updateEmailId] = useState('');
+  const [password1, updatePassword1] = useState('');
+  const [password2, updatePassword2] = useState('');
+  const [errorMessage, updateErrorMessage] = useState('');
 
-  async function createUser()
-  {
-    let base_url = process.env.REACT_APP_SERVER_BASE_URL;
-    let responseFromServer = await fetch(`${base_url}/createAccount`,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        "rool_no":roolNo,
-        "email":emailId,
-        "password":password1
-      })
-    })
-    responseFromServer = await responseFromServer.json();
-
-    if(responseFromServer.message == "rool_no_already_registered")
-    {
-      alert("roll no already registered")
-    }
-    else
-    {
-      console.log("account created ",responseFromServer)
+  async function createUser() {
+    try {
+      const base_url = process.env.REACT_APP_SERVER_BASE_URL;
+      console.log(rollNo,emailId,password1)
+      const response = await fetch(`${base_url}/user/createAccount`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          "roll_no": rollNo,
+          "email": emailId,
+          "password": password1
+        })
+      });
+      
+      const responseFromServer = await response.json();
+      
+      if (responseFromServer.message === "roll_no_already_registered") {
+        alert("Roll no already registered");
+      } else {
+        console.log("Account created", responseFromServer);
+        if(responseFromServer.message == "rool_no_already_registered")
+        {
+          alert("rool no already registered, Login to continue");
+          navigate("/login")
+        }
+        else if(responseFromServer.insertedId)
+        {
+          alert("Account created, Login to continue");
+          navigate("/login")
+        }
+      }
+    } catch (error) {
+      console.error("Error creating account:", error);
+      updateErrorMessage('An error occurred during sign up.');
     }
   }
 
-  function checkFromData(event)
-  {
+  function checkFormData(event) {
     event.preventDefault();
-    if(roolNo == null || roolNo == undefined || roolNo == '')
-    {
-      updateErrorMessage('null rool no found');
-    }
-    else
-    {
+    if (!rollNo) {
+      updateErrorMessage('Roll no cannot be empty');
+    } else if (!emailId) {
+      updateErrorMessage('Email Id cannot be empty');
+    } else if (!password1 || !password2) {
+      updateErrorMessage('Password cannot be empty');
+    } else if (password1 !== password2) {
+      updateErrorMessage('Passwords do not match');
+    } else {
       updateErrorMessage('');
-      if(emailId == null || emailId == undefined || emailId == '')
-      {
-        updateErrorMessage('null email Id found')
-      }
-      else
-      {
-        updateErrorMessage('')
-        if(password1 == null || password1 == undefined || password1 == '' || password2 == null || password2 == undefined || password2 == '')
-        {
-          updateErrorMessage('null password found')
-        }
-        else
-        {
-          updateErrorMessage('');
-          if(password1 != password2)
-          {
-            updateErrorMessage('passwords not matched')
-          }
-          else
-          {
-            updateErrorMessage('');
-            createUser()
-          }
-        }
-      }
+      createUser();
     }
   }
+
   return (
     <div>
       <h3>Sign up</h3>
-      <form>
-        <label>enter your college rool no</label><br/>
-        <input type='text' placeholder='rool no'/><br/>
-        <label>personal emailId</label><br/>
-        <input type='email' placeholder='email'/><br/>
-        <label>create password</label><br/>
-        <input type='password'/><br/>
-        <input type='password'/><br/>
-        <br/>
-        <button onClick={(event)=>{checkFromData(event)}}>sign up</button>
+      <form onSubmit={checkFormData}>
+        <label>Enter your college roll no</label><br />
+        <input type='text' placeholder='Roll no' value={rollNo} onChange={(e) => updateRollNo(e.target.value)} /><br />
+        <label>Personal email Id</label><br />
+        <input type='email' placeholder='Email' value={emailId} onChange={(e) => updateEmailId(e.target.value)} /><br />
+        <label>Create password</label><br />
+        <input type='password' placeholder='Password' value={password1} onChange={(e) => updatePassword1(e.target.value)} /><br />
+        <label>Re-enter password</label><br />
+        <input type='password' placeholder='Re-enter password' value={password2} onChange={(e) => updatePassword2(e.target.value)} /><br />
+        <br />
+        <p style={{ backgroundColor: "white", color: "red" }}>{errorMessage}</p>
+        <button type="submit">Sign up</button>
       </form>
     </div>
-  )
+  );
 }
 
-export default SignUp
+export default SignUp;

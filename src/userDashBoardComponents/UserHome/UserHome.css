@@ -1,0 +1,7 @@
+.scrollingClubs{
+    height: 130px;
+    overflow-x: scroll;
+}
+.scrollingClubs::-webkit-scrollbar{
+    width: 1px;
+}
