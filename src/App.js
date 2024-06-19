@@ -15,7 +15,7 @@ import UserClubs from './userDashBoardComponents/UserClubs/UserClubs';
 
 
 import ClubLandingPage from './clubComponents/clubLandingPage/ClubLandingPage';
-import ClubDescription from './clubComponents/clubDescription/ClubDescription';
+// import ClubDescription from './clubComponents/clubDescription/ClubDescription';
 import ClubLogin from './clubComponents/ClubLogin/ClubLogin';
 import ClubSignUp from './clubComponents/clubSignUp/ClubSignUp';
 
@@ -62,7 +62,7 @@ function App() {
       children:[
         {
           path:'',
-          element:<ClubDescription/>
+          element:<Description/>
         },
         {
           path:'login',

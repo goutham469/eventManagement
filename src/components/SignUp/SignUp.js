@@ -63,21 +63,23 @@ function SignUp() {
   }
 
   return (
-    <div>
-      <h3>Sign up</h3>
-      <form onSubmit={checkFormData}>
-        <label>Enter your college roll no</label><br />
-        <input type='text' placeholder='Roll no' value={rollNo} onChange={(e) => updateRollNo(e.target.value)} /><br />
-        <label>Personal email Id</label><br />
-        <input type='email' placeholder='Email' value={emailId} onChange={(e) => updateEmailId(e.target.value)} /><br />
-        <label>Create password</label><br />
-        <input type='password' placeholder='Password' value={password1} onChange={(e) => updatePassword1(e.target.value)} /><br />
-        <label>Re-enter password</label><br />
-        <input type='password' placeholder='Re-enter password' value={password2} onChange={(e) => updatePassword2(e.target.value)} /><br />
-        <br />
-        <p style={{ backgroundColor: "white", color: "red" }}>{errorMessage}</p>
-        <button type="submit">Sign up</button>
-      </form>
+    <div style={{backgroundColor:"white",padding:"10px",display:"flex",justifyContent:"space-around"}}>
+      <div style={{backgroundColor:"#1f1f1f",padding:"20px",color:"white"}}>
+        <h3>Sign up</h3>
+        <form onSubmit={checkFormData}>
+          <label>Enter your college roll no</label><br />
+          <input style={{border:"1px solid black",padding:"5px",borderRadius:"5px"}} type='text' placeholder='Roll no' value={rollNo} onChange={(e) => updateRollNo(e.target.value)} /><br />
+          <label>Personal email Id</label><br />
+          <input style={{border:"1px solid black",padding:"5px",borderRadius:"5px"}} type='email' placeholder='Email' value={emailId} onChange={(e) => updateEmailId(e.target.value)} /><br />
+          <label>Create password</label><br />
+          <input style={{border:"1px solid black",padding:"5px",borderRadius:"5px"}} type='password' placeholder='Password' value={password1} onChange={(e) => updatePassword1(e.target.value)} /><br />
+          <label>Re-enter password</label><br />
+          <input style={{border:"1px solid black",padding:"5px",borderRadius:"5px"}} type='password' placeholder='Re-enter password' value={password2} onChange={(e) => updatePassword2(e.target.value)} /><br />
+          <br />
+          <p style={{ backgroundColor: "white", color: "red" }}>{errorMessage}</p>
+          <button style={{border:"1px solid white",color:"white",backgroundColor:"black",borderRadius:"10px"}} type="submit">Sign up</button>
+        </form>
+      </div>
     </div>
   );
 }
